@@ -1,3 +1,46 @@
+# basics
+
+Show diff in staged files:
+
+``` bash
+git diff --staged
+```
+
+Show diff between two branches:
+
+``` bash
+git diff master..JEEConf2018
+```
+
+Show different changes between two branches:
+
+``` bash
+git log master..JEEConf2018
+```
+
+Show last N commits:
+
+``` bash
+git log -n 3
+```
+
+Push new local branch to upstream:
+
+``` bash
+git push -u origin JPrime2018
+```
+
+# stash
+
+Save local chanegs and index (i.e. staged changes):
+
+``` bash
+git stash
+git stash list
+git checkout <branch|change>
+git stash pop
+```
+
 # submodules
 
 ``` bash
