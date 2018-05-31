@@ -30,6 +30,28 @@ Push new local branch to upstream:
 git push -u origin JPrime2018
 ```
 
+Revert all local changes which have not been added to the index yet:
+
+``` bash
+git checkout .
+```
+
+Add files to the index:
+
+|                              | New | Modified | Deleted |
+|------------------------------|:---:|:--------:|:-------:|
+| `git add .`                  | Yes |    Yes   |   Yes   |
+| `git add -A`                 | Yes |    Yes   |   Yes   |
+| `git add -u`                 |  No |    Yes   |   Yes   |
+| `git add --ignore-removal .` | Yes |    Yes   |    No   |
+
+Unstage all / one specific file (i.e. remove from index):
+
+``` bash
+git reset
+git reset <file>
+```
+
 # stash
 
 Save local chanegs and index (i.e. staged changes):
