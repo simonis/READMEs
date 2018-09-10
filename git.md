@@ -12,11 +12,54 @@ Show diff between two branches:
 git diff master..JEEConf2018
 ```
 
-Show different changes between two branches:
+Show the changes in `JEEConf2018` but not in `master` (this contains changes from `JEEConf2018` which have already been cherrypicked to `master`!). Reversing the commit range (i.e. `JEEConf2018..master` will show the changes from master which are not yet in `JEEConf2018`):
 
 ``` bash
-git log master..JEEConf2018
+git log --oneline master..JEEConf2018
 ```
+
+Show the changes in `JEEConf2018` OR `master` but not in both (this contains changes from both `master` and `JEEConf2018` which have already been cherrypicked to the other branch!). 
+
+``` bash
+git log --oneline master...JEEConf2018
+```
+
+The last command is especially usefull together with the `--left-right` option. In that case, each change will be prefixed with `<` or `>` indicating in which of the two branches (i.e. left or right) the corresponding change is in:
+
+```bash
+git log --oneline --left-right master...JPrime2018
+< 4d7d041 Improved layout of JRuby slides
+< 612192d Slightly improved CDS/AOT introduction graphics
+< dbd1624 Improved 'Creating a Class List for Custom Loaders' slide
+> 081a062 Improved layout of JRuby slides
+> ba5d2b0 Slightly improved CDS/AOT introduction graphics
+> a96d4b4 Added 'Thanks for your attention'
+> 5b93cdc Improved 'Creating a Class List for Custom Loaders' slide
+> c4a555f Udated reference links to JPrime2018 repository
+```
+
+You can additionally use `--cherry-pick` to exclude changes which have been already cherry-picked from one branch into the other:
+
+```bash
+git log --oneline --left-right --cherry-pick master...JPrime2018
+> a96d4b4 Added 'Thanks for your attention'
+> c4a555f Udated reference links to JPrime2018 repository
+```
+
+Finally, with `--cherry-mark` cherry picked changes are displayed with a `=` if they were cherry picked unchanged or with a `+` if they have been changed while cherry picked:
+
+```bash
+git log --oneline --left-right --cherry-mark master...JPrime2018
+= 4d7d041 Improved layout of JRuby slides
+= 612192d Slightly improved CDS/AOT introduction graphics
+= dbd1624 Improved 'Creating a Class List for Custom Loaders' slide
+= 081a062 Improved layout of JRuby slides
+= ba5d2b0 Slightly improved CDS/AOT introduction graphics
+> a96d4b4 Added 'Thanks for your attention'
+= 5b93cdc Improved 'Creating a Class List for Custom Loaders' slide
+> c4a555f Udated reference links to JPrime2018 repository
+```
+This means for example that `4d7d041` from the left side (i.e. `master`) has been cherry picked from `081a062` from the right side (i.e. `JPrime2018`) without changing.
 
 Show last N commits:
 
