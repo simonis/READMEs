@@ -73,10 +73,11 @@ Push new local branch to upstream:
 git push -u origin JPrime2018
 ```
 
-Revert all local changes which have not been added to the index yet:
+Revert all / specific local changes which have not been added to the index yet:
 
 ``` bash
 git checkout .
+git checkout <path>
 ```
 
 Add files to the index:
