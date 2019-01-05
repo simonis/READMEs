@@ -1,24 +1,66 @@
 # basics
 
-Show diff in staged files:
+- Show last N commits:
+
+``` bash
+git log -n 3
+```
+
+- Push new local branch to upstream:
+
+``` bash
+git push -u origin JPrime2018
+```
+
+- Remove untracked files from the working tree
+
+```
+git clean -f -d [-n]
+```
+`-f` is for *files*, `-d` for *directories* and `-n` (or `--dry-run`) will show what would be deleted without actually deleting anything.
+
+- Revert all / specific local changes which have not been added to the index yet:
+
+``` bash
+git checkout .
+git checkout <path>
+```
+
+- Add files to the index:
+
+|                              | New | Modified | Deleted |
+|------------------------------|:---:|:--------:|:-------:|
+| `git add .`                  | Yes |    Yes   |   Yes   |
+| `git add -A`                 | Yes |    Yes   |   Yes   |
+| `git add -u`                 |  No |    Yes   |   Yes   |
+| `git add --ignore-removal .` | Yes |    Yes   |    No   |
+
+- Unstage all / one specific file (i.e. remove from index):
+
+``` bash
+git reset
+git reset <file>
+```
+
+- Show diff in staged files:
 
 ``` bash
 git diff --staged
 ```
 
-Show diff between two branches:
+- Show diff between two branches:
 
 ``` bash
 git diff master..JEEConf2018
 ```
 
-Show the changes in `JEEConf2018` but not in `master` (this contains changes from `JEEConf2018` which have already been cherrypicked to `master`!). Reversing the commit range (i.e. `JEEConf2018..master` will show the changes from master which are not yet in `JEEConf2018`):
+- Show the changes in `JEEConf2018` but not in `master` (this contains changes from `JEEConf2018` which have already been cherrypicked to `master`!). Reversing the commit range (i.e. `JEEConf2018..master` will show the changes from master which are not yet in `JEEConf2018`):
 
 ``` bash
 git log --oneline master..JEEConf2018
 ```
 
-Show the changes in `JEEConf2018` OR `master` but not in both (this contains changes from both `master` and `JEEConf2018` which have already been cherrypicked to the other branch!). 
+- Show the changes in `JEEConf2018` OR `master` but not in both (this contains changes from both `master` and `JEEConf2018` which have already been cherrypicked to the other branch!). 
 
 ``` bash
 git log --oneline master...JEEConf2018
@@ -61,44 +103,9 @@ git log --oneline --left-right --cherry-mark master...JPrime2018
 ```
 This means for example that `4d7d041` from the left side (i.e. `master`) has been cherry picked from `081a062` from the right side (i.e. `JPrime2018`) without changing.
 
-Show last N commits:
-
-``` bash
-git log -n 3
-```
-
-Push new local branch to upstream:
-
-``` bash
-git push -u origin JPrime2018
-```
-
-Revert all / specific local changes which have not been added to the index yet:
-
-``` bash
-git checkout .
-git checkout <path>
-```
-
-Add files to the index:
-
-|                              | New | Modified | Deleted |
-|------------------------------|:---:|:--------:|:-------:|
-| `git add .`                  | Yes |    Yes   |   Yes   |
-| `git add -A`                 | Yes |    Yes   |   Yes   |
-| `git add -u`                 |  No |    Yes   |   Yes   |
-| `git add --ignore-removal .` | Yes |    Yes   |    No   |
-
-Unstage all / one specific file (i.e. remove from index):
-
-``` bash
-git reset
-git reset <file>
-```
-
 # stash
 
-Save local chanegs and index (i.e. staged changes):
+- Save local chanegs and index (i.e. staged changes):
 
 ``` bash
 git stash
