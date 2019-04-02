@@ -6,7 +6,7 @@
 git log -n 3
 ```
 
-#### Push new local branch to upstream:
+#### Push new local branch to upstream (`-u` = `--set-upstream`):
 
 ``` bash
 git push -u origin JPrime2018
@@ -106,6 +106,29 @@ git log --oneline --left-right --cherry-mark master...JPrime2018
 > c4a555f Udated reference links to JPrime2018 repository
 ```
 This means for example that `4d7d041` from the left side (i.e. `master`) has been cherry picked from `081a062` from the right side (i.e. `JPrime2018`) without changing.
+
+#### Is an update available (similar to `hg incoming`)
+
+``` bash
+git ls-remote --heads <repository>
+```
+
+Lists all the remote heads with their change id. `<repository>` defaults to `origin` but can be set to any arbitrary remote or reopsitory URL. Example:
+
+``` bash
+$ git ls-remote --heads
+From http://github.com/SAP/SapMachine
+5ad2b5f9029c9a1ab926ee49990b24074370d298	refs/heads/sapmachine
+76cc6fb9b82510d61fdea5024856f2bd835b9eaf	refs/heads/sapmachine10
+5ae9140265b865952412802119b060c969fdeb1f	refs/heads/sapmachine11
+c8db5f344e24e15d40f372cfcf0125f544f22ad4	refs/heads/sapmachine12
+$ git show sapmachine11
+commit 5ae9140265b865952412802119b060c969fdeb1f
+...
+```
+
+The remote head of the `sapmachine11` branch is the same like the local one (i.e. `git show sapmachine11
+commit 5ae9140265b865952412802119b060c969fdeb1f`) so `git fetch/pull` won't fetchany new changes.
 
 # stash
 
