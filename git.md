@@ -2,14 +2,14 @@
 
 #### Show last N commits:
 
-``` bash
-git log -n 3
+``` console
+$ git log -n 3
 ```
 
 #### Push new local branch to upstream (`-u` = `--set-upstream`):
 
-``` bash
-git push -u origin JPrime2018
+``` console
+$ git push -u origin JPrime2018
 ```
 
 #### Remove untracked files from the working tree
