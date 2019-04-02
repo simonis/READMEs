@@ -107,7 +107,7 @@ git log --oneline --left-right --cherry-mark master...JPrime2018
 ```
 This means for example that `4d7d041` from the left side (i.e. `master`) has been cherry picked from `081a062` from the right side (i.e. `JPrime2018`) without changing.
 
-#### Is an update available (similar to `hg incoming`)
+#### Is an update available ? (similar to `hg incoming`)
 
 ``` bash
 git ls-remote --heads <repository>
@@ -129,6 +129,35 @@ commit 5ae9140265b865952412802119b060c969fdeb1f
 
 The remote head of the `sapmachine11` branch is the same like the local one (i.e. `git show sapmachine11
 commit 5ae9140265b865952412802119b060c969fdeb1f`) so `git fetch/pull` won't fetchany new changes.
+
+#### Remotes
+
+```bash
+$ git remote show
+origin
+wdf
+$ git remote show origin
+* remote origin
+  Fetch URL: http://github.com/SAP/SapMachine
+  Push  URL: http://github.com/SAP/SapMachine
+  HEAD branch: sapmachine
+  Remote branches:
+    sapmachine10                                       tracked
+    sapmachine11                                       tracked
+    sapmachine12                                       tracked
+  Local branches configured for 'git pull':
+    jdk-updates/jdk11u merges with remote jdk-updates/jdk11u
+    jdk/jdk            merges with remote jdk/jdk
+    jdk/jdk11          merges with remote jdk/jdk11
+    sapmachine         merges with remote sapmachine
+    sapmachine11       merges with remote sapmachine11
+  Local refs configured for 'git push':
+    jdk-updates/jdk11u pushes to jdk-updates/jdk11u (local out of date)
+    jdk/jdk            pushes to jdk/jdk            (local out of date)
+    jdk/jdk11          pushes to jdk/jdk11          (up to date)
+    sapmachine         pushes to sapmachine         (local out of date)
+    sapmachine11       pushes to sapmachine11       (up to date)
+```
 
 # stash
 
