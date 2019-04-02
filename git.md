@@ -132,7 +132,7 @@ commit 5ae9140265b865952412802119b060c969fdeb1f`) so `git fetch/pull` won't fetc
 
 #### Remotes
 
-```bash
+```console
 $ git remote show
 origin
 wdf
