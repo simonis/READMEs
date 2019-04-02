@@ -250,4 +250,43 @@ git checkout master
 git merge --ff GeeCon2018_feedback
 git branch -d GeeCon2018_feedback
 ```
+# Import a Mercurial changeset into Git
 
+In Mercurial, export a change to a file:
+
+```
+hg export -o <filename> -r <revision>
+```
+
+The header of the created file looks as follows:
+
+```console
+$ head <file>
+# HG changeset patch
+# User simonis
+# Date 1553712467 -3600
+#      Wed Mar 27 19:47:47 2019 +0100
+# Node ID 0223b7b8a1c5f3ae69ae79d03ddcea983718cc87
+# Parent  3fedbfdb25b636ea34a778c38017924016bffc82
+8220528: [AIX] Fix basic Xinerama and Xrender functionality
+Reviewed-by: clanger, stuefe, serb
+
+diff -r 3fedbfdb25b6 -r 0223b7b8a1c5 src/java.desktop/unix/native/libawt_xawt/awt/awt_GraphicsEnv.c
+```
+
+This has to be changed to look as follows:
+
+```console
+$ head <file>
+From: simonis <none@none>
+Date: Wed Mar 27 19:47:47 2019 +0100
+Subject: 8220528: [AIX] Fix basic Xinerama and Xrender functionality
+  Reviewed-by: clanger, stuefe, serb
+
+diff -r 3fedbfdb25b6 -r 0223b7b8a1c5 src/java.desktop/unix/native/libawt_xawt/awt/awt_GraphicsEnv.c
+```
+Now, this change can be imported into Git with [`git am`](https://git-scm.com/docs/git-am):
+
+```console
+$ git am <file>
+```
