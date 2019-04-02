@@ -127,6 +127,17 @@ commit 5ae9140265b865952412802119b060c969fdeb1f
 ...
 ```
 
+Or you can use `show-ref` to see the local heads and/or tags:
+
+```console
+$ git show-ref --heads
+321d1442d5fbf751bf6af329950dd901d182a682 refs/heads/jdk-updates/jdk11u
+f09d78b55d2adea21f8168a3385a3455f95b6612 refs/heads/jdk/jdk
+d58ba44b16bf63aac6f60d03a8f0051d64a0b1fe refs/heads/jdk/jdk11
+0bea89f00a31145580159854b770662c1774723f refs/heads/sapmachine
+5ae9140265b865952412802119b060c969fdeb1f refs/heads/sapmachine11
+```
+
 The remote head of the `sapmachine11` branch is the same like the local one (i.e. `git show sapmachine11
 commit 5ae9140265b865952412802119b060c969fdeb1f`) so `git fetch/pull` won't fetchany new changes.
 
