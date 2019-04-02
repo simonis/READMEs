@@ -170,6 +170,16 @@ $ git remote show origin
     sapmachine11       pushes to sapmachine11       (up to date)
 ```
 
+#### Defining a default remote
+
+If you want to prevent to accidentaly push to a wrong remote, a default remote for all pushes can be defined:
+
+```
+git config remote.pushDefault <remote>
+```
+
+More fine grained configurations are possible by setting [`branch.<name>.remote`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchltnamegtremote) or [`branch.<name>.pushRemote`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchltnamegtpushRemote).
+
 # stash
 
 - Save local chanegs and index (i.e. staged changes):
