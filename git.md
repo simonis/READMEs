@@ -182,7 +182,7 @@ More fine grained configurations are possible by setting [`branch.<name>.remote`
 
 # stash
 
-- Save local chanegs and index (i.e. staged changes):
+- Save local changes and index (i.e. staged changes):
 
 ```
 git stash
@@ -198,7 +198,7 @@ git submodule add -b JEEConf2018 https://github.com/simonis/CDS
 git submodule update --init --recursive
 ```
 
-# rebase interactively
+# rebase interactively (i.e. cherry-picking)
 
 To cherry-pick some changes (and possibly edit them) from a branch (i.e. `GeeCon2018`) into another branch (i.e. `master`) do the following:
 
