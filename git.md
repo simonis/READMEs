@@ -5,6 +5,19 @@
 ```
 git log -n 3
 ```
+#### Show changes and files at revision
+
+```
+git show <rev>
+```
+
+`<rev>` can be a tag, branch or change SHA.
+
+```
+git show <rev>:<file>
+```
+
+Shows `<file>` at the revision `<rev>`.
 
 #### Push new local branch to upstream (`-u` = `--set-upstream`):
 
