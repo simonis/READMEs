@@ -251,10 +251,11 @@ git rebase --continue
 
 Finally, when all the changes have been rebased but your still not satisified with the result, you can easily refine it by simply repeating the rebase:
 
-
 ```
 git rebase --interactive --onto master master GeeCon2018_feedback
 ```
+
+> If `git rebase` aborts with an error saying somthing like `error: Your local changes to the following files would be overwritten by merge`, this can be easily fixed by running the rebase command with the "`-c core.trustctime=false`" option. Read the [A Simple Tweak for Making 'git rebase' Safe on OS X](https://www.git-tower.com/blog/make-git-rebase-safe-on-osx/) blog if you're interested why this happens and how the workaround fixes the problem.
 
 Once your satisfied with the result, simply merge the temporary `GeeCon2018_feedback` branch into `master` and delete it afterwards:
 
@@ -263,6 +264,8 @@ git checkout master
 git merge --ff GeeCon2018_feedback
 git branch -d GeeCon2018_feedback
 ```
+
+
 # Import a Mercurial changeset into Git
 
 In Mercurial, export a change to a file:
