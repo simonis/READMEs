@@ -38,6 +38,16 @@ git clean -f -d [-n]
 git checkout .
 git checkout <path>
 ```
+#### Revert the last commit(s)
+
+```
+git reset HEAD^
+git reset --hard HEAD^
+git reset HEAD~2
+```
+
+The first command reverts the last commit but keeps the local changes. The second command reverts the last commit AND removes the local changes. The third command reverts the last two commits. Following this pattern, even more commits can be remmoved.
+
 
 #### Add files to the index:
 
