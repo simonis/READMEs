@@ -71,6 +71,14 @@ git reset <file>
 git diff --staged
 ```
 
+#### Export committed changes to local patch files
+
+```
+git format-patch -2
+```
+
+`-2` means the last two revisions. This will crear the files `0001-<Change_1_Subject>.patch` and `0002-<Change_2_Subject>.patch` in the local directory.
+
 #### Show diff between two branches:
 
 ```
