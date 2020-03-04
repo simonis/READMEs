@@ -5,6 +5,13 @@
 ```
 git log -n 3
 ```
+
+#### Graphical log
+
+```
+git log --all --graph --oneline
+```
+
 #### Show changes and files at revision
 
 ```
@@ -91,6 +98,14 @@ This contains changes from `JEEConf2018` which have already been cherrypicked to
 
 ```
 git log --oneline master..JEEConf2018
+```
+
+`JEEConf2018` can be omitted if you'Re already on that branch. Notice that this command shows merge changes from `master` into `JEEConf2018`.
+
+Another possibility to get simialr information (but without the merge changes) is the following command (again, `JEEConf2018` can be omiited, if you're already on that branch):
+
+```
+git cherry -v master JEEConf2018
 ```
 
 #### Show the changes in `JEEConf2018` OR `master` but not in both
@@ -211,6 +226,16 @@ git config remote.pushDefault <remote>
 
 More fine grained configurations are possible by setting [`branch.<name>.remote`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchltnamegtremote) or [`branch.<name>.pushRemote`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchltnamegtpushRemote).
 
+#### Finding a branch point with Git
+
+This doesn't really seems to be possible in general. See https://community.atlassian.com/t5/Bitbucket-questions/Knowing-from-which-branch-the-current-branch-was-created-from/qaq-p/570135, https://stackoverflow.com/questions/3161204/how-to-find-the-nearest-parent-of-a-git-branch and https://stackoverflow.com/questions/1527234/finding-a-branch-point-with-git.
+
+The best we can come up with is something like:
+```
+diff -u <(git rev-list --first-parent feature) <(git rev-list --first-parent master) | sed -ne 's/^ //p' | head -1
+```
+This assumes that you have branched `feature` from `master` at some point in time and you may have after that merged `master` into `feature` several time (but not the other way round. You may also have to remove the `--first-parent` before `master` if master contains merge changes.
+
 # stash
 
 - Save local changes and index (i.e. staged changes):
@@ -282,7 +307,6 @@ git checkout master
 git merge --ff GeeCon2018_feedback
 git branch -d GeeCon2018_feedback
 ```
-
 
 # Import a Mercurial changeset into Git
 
