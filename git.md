@@ -187,6 +187,28 @@ d58ba44b16bf63aac6f60d03a8f0051d64a0b1fe refs/heads/jdk/jdk11
 The remote head of the `sapmachine11` branch is the same like the local one (i.e. `git show sapmachine11
 commit 5ae9140265b865952412802119b060c969fdeb1f`) so `git fetch/pull` won't fetchany new changes.
 
+#### Delete/Rename Branch
+
+Delete a local branch
+```
+$ git branch -d <branchname>
+```
+
+Rename a local branch
+```
+$ git branch -m <old-name> <new-name>
+```
+
+Unset upstream of a local branch
+```
+$ git branch --unset-upstream <branchname>
+```
+
+Delte remote branch
+```
+$ git push origin --delete <branchname>
+```
+
 #### Remotes
 
 ```console
