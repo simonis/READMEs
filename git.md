@@ -86,6 +86,10 @@ git format-patch -2
 
 `-2` means the last two revisions. This will crear the files `0001-<Change_1_Subject>.patch` and `0002-<Change_2_Subject>.patch` in the local directory.
 
+Use `--stdout` to redirect the diff to stdout.
+
+Use `-1 <hash>` to export the change with hash ID `<hash>`
+
 #### Show diff between two branches:
 
 ```
