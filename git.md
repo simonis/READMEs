@@ -90,6 +90,19 @@ Use `--stdout` to redirect the diff to stdout.
 
 Use `-1 <hash>` to export the change with hash ID `<hash>`
 
+#### Import chengers from a patch file
+
+```
+git apply <file>
+git apply --check <file>
+```
+The first version imports the changes from `<file>` without creating a new change (much like `patch < <file>`). Ther second version (with `--check`) only checks if the patch will apply cleanly (like `patch --dry-run < <file>`).
+
+```
+git am <file>
+```
+This creates a new, committed change from `<file>`. It can be used to directly import changes exported with `git format-patch` before.
+
 #### Show diff between two branches:
 
 ```
