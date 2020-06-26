@@ -259,6 +259,14 @@ $ git remote show origin
 ```console
 git remote add corretto8-upstream https://github.com/corretto/corretto-8.git
 ```
+#### [Syncing a fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork)
+
+```console
+$ git fetch https://help.github.com/en/github/using-git/adding-a-remote
+$ git checkout develop
+$ git merge --ff-only corretto8-upstream/develop
+$ git push
+```
 
 #### Defining a default remote
 
