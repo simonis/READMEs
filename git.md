@@ -254,6 +254,11 @@ $ git remote show origin
     sapmachine         pushes to sapmachine         (local out of date)
     sapmachine11       pushes to sapmachine11       (up to date)
 ```
+#### Ad a new remote
+
+```console
+git remote add corretto8-upstream https://github.com/corretto/corretto-8.git
+```
 
 #### Defining a default remote
 
