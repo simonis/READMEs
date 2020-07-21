@@ -351,6 +351,13 @@ git commit --amend -m "Added new slides for JDK 11 enhancements"
 git rebase --continue
 ```
 
+or, if you don't want to change the original commit message:
+
+```
+git commit --amend --no-edit
+git rebase --continue
+```
+
 Finally, when all the changes have been rebased but your still not satisified with the result, you can easily refine it by simply repeating the rebase:
 
 ```
