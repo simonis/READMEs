@@ -204,6 +204,14 @@ d58ba44b16bf63aac6f60d03a8f0051d64a0b1fe refs/heads/jdk/jdk11
 The remote head of the `sapmachine11` branch is the same like the local one (i.e. `git show sapmachine11
 commit 5ae9140265b865952412802119b060c969fdeb1f`) so `git fetch/pull` won't fetchany new changes.
 
+#### Pull with "*take-theirs*" after remote has changed history (i.e. *[forced update](https://stackoverflow.com/questions/9813816/git-pull-after-forced-update)*)
+
+If you're on the `master` branch and upstream (i.e. `origin/master`) was forceably updated, do: 
+```
+$ git fetch
+$ git reset origin/master --hard
+```
+
 #### Delete/Rename Branch
 
 Delete a local branch
