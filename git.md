@@ -321,6 +321,24 @@ git submodule add -b JEEConf2018 https://github.com/simonis/CDS
 git submodule update --init --recursive
 ```
 
+# rebase (simple)
+
+To rebase a branch `<my-branch>` on top of `master` (e.g. after you pulled `master` from `origin` or `upstream`) do the following:
+```
+git checkout <my-branch>
+git rebase master
+```
+This will replay all changes which are on `<my-branch>` and not on `master` onto `master`. You can find the merge point (i.e. the change where `<my-branch>` branched off from `master` with the `merge-base` command:
+```
+git merge-base <my-branch> master
+```
+
+For more complicated rebases you can use:
+```
+git rebase --onto master <other-branch> <my-branch>
+```
+This will rebase all changes from `<my-branch>` since it was branched from `<other-branch>` onto `master`. See the [Git-book](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) for more exmaples and graphs.
+
 # rebase interactively (i.e. cherry-picking)
 
 To cherry-pick some changes (and possibly edit them) from a branch (i.e. `GeeCon2018`) into another branch (i.e. `master`) do the following:
