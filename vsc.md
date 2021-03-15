@@ -29,3 +29,35 @@ $ cd ccls
 $ /share/software/cmake-3.15.3-Linux-x86_64/bin/cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS='-stdlib=libc++' -DCMAKE_EXE_LINKER_FLAGS='-Wl,-rpath,/share/software/clang+llvm-8.0.1-x86_64-linux-sles11.3/lib -stdlib=libc++ -lc++abi' -DCMAKE_CXX_COMPILER=/share/software/clang+llvm-8.0.1-x86_64-linux-sles11.3/bin/clang++ -DCMAKE_PREFIX_PATH=/share/software/clang+llvm-8.0.1-x86_64-linux-sles11.3
 $ /share/software/cmake-3.15.3-Linux-x86_64/bin/cmake --build Release --verbose 2>&1 | tee build_new.log
 ```
+
+### Building on RHEL 8.2
+
+Install the following packages:
+```
+sudo yum install cmake
+sudo yum install clang-devel
+sudo yum install llvm-devel
+```
+Afterwards do:
+```
+$ git clone --depth=1 --recursive https://github.com/MaskRay/ccls
+$ cd ccls
+$ VERBOSE=1 cmake --build Release
+```
+This will build everything up until the link process which will fail with:
+```
+/usr/bin/ld: cannot find -lclangIndex
+/usr/bin/ld: cannot find -lclangFormat
+/usr/bin/ld: cannot find -lclangTooling
+/usr/bin/ld: cannot find -lclangToolingInclusions
+/usr/bin/ld: cannot find -lclangToolingCore
+/usr/bin/ld: cannot find -lclangFrontend
+/usr/bin/ld: cannot find -lclangParse
+/usr/bin/ld: cannot find -lclangSerialization
+/usr/bin/ld: cannot find -lclangSema
+/usr/bin/ld: cannot find -lclangAST
+/usr/bin/ld: cannot find -lclangLex
+/usr/bin/ld: cannot find -lclangDriver
+/usr/bin/ld: cannot find -lclangBasic
+```
+But `VERBOSE=1` will give us the exact link command. Now replace `-lclangIndex -lclangFormat -lclangTooling -lclangToolingInclusions -lclangToolingCore -lclangFrontend -lclangParse -lclangSerialization -lclangSema -lclangAST -lclangLex -lclangDriver -lclangBasic` in the link command by `-lclang-cpp` and re-run the link command manually. This will successfully create `./Release/ccls`.
