@@ -440,3 +440,34 @@ Now, this change can be imported into Git with [`git am`](https://git-scm.com/do
 ```console
 $ git am <file>
 ```
+
+# Using a git credential helper to store GitHub access tokens
+
+The git crediantial helper can be set and queried with:
+```
+$ git config credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+$ git config credential.helper
+/usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+```
+
+It is stored in the use's gloabl git config file `~/.gitconfig`:
+```
+...
+[credential]
+	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+...
+```
+
+Git supports several different credential helpers but it seems they are all [only available in source code form](https://github.com/git/git/tree/master/contrib/credential) and you'll have to compile them yourself. At least on Ubunto 18.04, the normal git installation contains all these sources under `/usr/share/doc/git/contrib/credential/`. In order to build the `libsecret` credential helper `git-credential-libsecret` do the following as root:
+```
+$ apt install libsecret-1-0 libsecret-1-dev libglib2.0-dev
+$ cd /usr/share/doc/git/contrib/credential/libsecret
+$ make
+```
+
+Unfortunately there's no documentation available for `git-credential-libsecret` other then the source code and a [StackOverflow answer](https://stackoverflow.com/a/68374333/4146053). The following command can be used to get, store, and erease entries:
+```
+$ printf "protocol=https\nhost=github.com" | /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret get
+username=simonis
+password=ghp_1234567890121345678901234567890
+```
