@@ -90,7 +90,7 @@ Use `--stdout` to redirect the diff to stdout.
 
 Use `-1 <hash>` to export the change with hash ID `<hash>`
 
-#### Import chengers from a patch file
+#### Import changes from a patch file
 
 ```
 git apply <file>
@@ -98,10 +98,19 @@ git apply --check <file>
 ```
 The first version imports the changes from `<file>` without creating a new change (much like `patch < <file>`). Ther second version (with `--check`) only checks if the patch will apply cleanly (like `patch --dry-run < <file>`).
 
+You can try `-3`/`-3way` to attempt a three-way merge, but this will only work if the patch-file records the changeset hashes it was based on and these hashes are from a related repository (i.e. are present in the current repository). This will work if the patch was created with `git format-patch` and the parent changeset of the patch change is present in the current repository. It will **not** work for downports (e.g. from jdk17 to jdk11) becuase the parent changeset of the patch change in jdk17 will usually not be in jdk11 as well. 
+
 ```
 git am <file>
 ```
 This creates a new, committed change from `<file>`. It can be used to directly import changes exported with `git format-patch` before.
+
+Again, you can try to use `-3`/`-3way` to attempt a three-way merge, but it has the same restrictions as described before (also see the "[resolve conflicts from am session](https://stackoverflow.com/questions/49689936/resolve-conflicts-from-am-session)" StackOverflow question). In the case a three-way merge is failing you can use `git mergetool` with your favorite mergetool (e.g. `git mergetool --tool=kdiff3`).
+
+If you can not use a threw-way merge or if you have a plain patch file without any Git hashes, you can use the [mpatch](https://github.com/simonis/mpatch) utility:
+```
+PYTHONPATH=~/lib/python ~/bin/mpatch -a -m kdiff3 /tmp/test.patch
+```
 
 #### Show diff between two branches:
 
