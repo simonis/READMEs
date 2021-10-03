@@ -480,3 +480,6 @@ $ printf "protocol=https\nhost=github.com" | /usr/share/doc/git/contrib/credenti
 username=simonis
 password=ghp_1234567890121345678901234567890
 ```
+
+Other tools for accessing and managing the libsecret store are [secret-tool](http://manpages.ubuntu.com/manpages/bionic/man1/secret-tool.1.html) and [lssecret](https://github.com/gileshuang/lssecret).
+
