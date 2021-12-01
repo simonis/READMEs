@@ -241,7 +241,7 @@ $ git branch --unset-upstream <branchname>
 Set a new upstream for a local branch
 ```
 $ git checkout <branchname>
-$ git --set-upstream-to=origin/<branchname>
+$ git branch --set-upstream-to=origin/<branchname>
 ```
 If you did some local changes which changed the history of `<branchname>` you'll have to do a `push --force` to push the new branch upstream.
 
