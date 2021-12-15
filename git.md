@@ -250,6 +250,13 @@ Delte remote branch
 $ git push origin --delete <branchname>
 ```
 
+#### Pull a Pull Request from GitHub
+
+```
+git fetch upstream pull/<pull-request-id>/head:<local-branch-name>
+```
+This will create a new local branch '<local-branch-name>' with the content of pull request `#<pull-request-id>`.
+
 #### Remotes
 
 ```console
