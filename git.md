@@ -221,7 +221,17 @@ $ git fetch
 $ git reset origin/master --hard
 ```
 
-#### Delete/Rename Branch
+#### Create/Delete/Rename Branch
+
+Create a branch
+```
+$ git checkout -b <branchname>
+```
+which is a shorthand for
+```
+$ git branch <branchname>
+$ git checkout <branchname>
+```
 
 Delete a local branch
 ```
