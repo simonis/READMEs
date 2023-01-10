@@ -8,3 +8,5 @@
 - see [`ExtendedSocketOptions.SO_PEERCRED`](
   https://docs.oracle.com/en/java/javase/19/docs/api/jdk.net/jdk/net/ExtendedSocketOptions.html#SO_PEERCRED)
   for an example how we could implement kTLS in Java.
+- [Improving NGINX Performance with Kernel TLS and SSL_sendfile()](
+  https://www.nginx.com/blog/improving-nginx-performance-with-kernel-tls/)
