@@ -1,0 +1,9 @@
+- https://man.archlinux.org/man/io_uring.7.en
+- [JVM network servers backed by io_uring](https://martin-grigorov.medium.com/jvm-network-servers-backed-by-io-uring-244fea58bb19)
+- [Missing Manuals - io_uring worker pool](https://blog.cloudflare.com/missing-manuals-io_uring-worker-pool/)
+- https://github.com/bbeaupain/nio_uring
+- https://github.com/netty/netty-incubator-transport-io_uring
+- [Efficient IO with io_uring](https://kernel.dk/io_uring.pdf)
+- [An Introduction to the io_uring Asynchronous I/O Framework](https://blogs.oracle.com/linux/post/an-introduction-to-the-io-uring-asynchronous-io-framework)
+- [io_uring By Example: An Article Series](https://unixism.net/2020/04/io-uring-by-example-article-series/)
+- [Lord of the io_uring](https://unixism.net/loti/)
