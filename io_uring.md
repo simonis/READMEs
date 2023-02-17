@@ -7,3 +7,4 @@
 - [An Introduction to the io_uring Asynchronous I/O Framework](https://blogs.oracle.com/linux/post/an-introduction-to-the-io-uring-asynchronous-io-framework)
 - [io_uring By Example: An Article Series](https://unixism.net/2020/04/io-uring-by-example-article-series/)
 - [Lord of the io_uring](https://unixism.net/loti/)
+- [io_uring and networking in 2023](https://github.com/axboe/liburing/wiki/io_uring-and-networking-in-2023)

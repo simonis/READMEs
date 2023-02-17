@@ -640,3 +640,8 @@ $ sudo unshare -p -m -f bash
 # mount -t proc none /proc/
 # criu restore --images-dir /tmp/random_init --shell-job
 ```
+
+- [Faster start-up for Java applications on Open Liberty with CRIU snapshots](https://openliberty.io/blog/2020/02/12/faster-startup-Java-applications-criu.html)
+- The corresponding https://github.com/ashu-mehra/criu-ol GitHub repo contains usefull scripts and examples on how to run CRIU
+
+## [Kata Containers Architecture](https://github.com/kata-containers/documentation/blob/master/design/architecture.md)
