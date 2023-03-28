@@ -645,3 +645,37 @@ $ sudo unshare -p -m -f bash
 - The corresponding https://github.com/ashu-mehra/criu-ol GitHub repo contains usefull scripts and examples on how to run CRIU
 
 ## [Kata Containers Architecture](https://github.com/kata-containers/documentation/blob/master/design/architecture.md)
+
+## Install new kernel on Ubuntu
+```
+$ mkdir linux-5.19.17/
+$ cd linux-5.19.17/
+$ wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.19.17/amd64/linux-headers-5.19.17-051917-generic_5.19.17-051917.202210240939_amd64.deb
+$ wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.19.17/amd64/linux-headers-5.19.17-051917_5.19.17-051917.202210240939_all.deb
+$ wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.19.17/amd64/linux-image-unsigned-5.19.17-051917-generic_5.19.17-051917.202210240939_amd64.deb
+$ wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.19.17/amd64/linux-modules-5.19.17-051917-generic_5.19.17-051917.202210240939_amd64.deb
+  
+$ sudo apt install ./linux-*.deb
+```
+
+## Compiling Ubuntu/Debian packages from source
+```
+$ wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.19.17.tar.xz
+$ tar -xJf linux-5.19.17.tar.xz
+$ cd linux-5.19.17
+$ cp /boot/config-$(uname -r) .config
+$ make olddefconfig
+$ make -j 12 deb-pkg LOCALVERSION=-custom
+$ sudo dpkg -i ../linux-image-5.19.17-custom_5.19.17-custom-1_amd64.deb ../linux-headers-5.19.17-custom_5.19.17-custom-1_amd64.deb
+```
+
+## Setting up Ubuntu machine for development
+
+```
+$ sudo apt-get update
+$ sudo apt-get install autoconf make zip unzip gcc g++ gcc g++ libx11-dev libxext-dev libxrender-dev libxrandr-dev libxtst-dev libxt-dev libcups2-dev libasound2-dev libfreetype6-dev libfontconfig-dev ccache libnet-dev libnl-route-3-dev gcc bsdmainutils build-essential git-core iptables libaio-dev libcap-dev libgnutls28-dev libgnutls30 libnl-3-dev libprotobuf-c-dev libprotobuf-dev libselinux-dev libbsd-dev pkg-config protobuf-c-compiler protobuf-compiler emacs-nox apt-transport-https ca-certificates curl software-properties-common libclang-dev net-tools acl
+```
+## Install Docker: https://docs.docker.com/engine/install/ubuntu/
+```
+$ sudo adduser ubuntu docker
+```
