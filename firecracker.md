@@ -657,6 +657,17 @@ $ wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.19.17/amd64/linux-modul
   
 $ sudo apt install ./linux-*.deb
 ```
+or:
+
+```
+$ git clone https://github.com/bkw777/mainline.git
+$ cd mainline
+$ make
+$ ./mainline list
+$ ./mainline list-installed
+$ ./mainline install 6.5.7
+```
+But this has issues because new kernels have dependencies on `libssl3`/`glibc` which aren't fulfilled on Ubuntu 20.04 (see [here](https://github.com/bkw777/mainline#not-features))
 
 ## Compiling Ubuntu/Debian packages from source
 ```
@@ -666,8 +677,17 @@ $ cd linux-5.19.17
 $ cp /boot/config-$(uname -r) .config
 $ make olddefconfig
 $ make -j 12 deb-pkg LOCALVERSION=-custom
+$ make -j 12 bindeb-pkg LOCALVERSION=-custom (since kernel 6.3)
 $ sudo dpkg -i ../linux-image-5.19.17-custom_5.19.17-custom-1_amd64.deb ../linux-headers-5.19.17-custom_5.19.17-custom-1_amd64.deb
 ```
+For newer kernel you might have to do (see https://askubuntu.com/questions/1329538/compiling-the-kernel-5-11-11, https://stackoverflow.com/questions/61657707/btf-tmp-vmlinux-btf-pahole-pahole-is-not-available):
+```
+$ ./scripts/config --disable SYSTEM_TRUSTED_KEYS
+$ ./scripts/config --disable SYSTEM_REVOCATION_KEYS
+$ sudo apt install dwarves
+```
+
+You might want to set `CONFIG_DEBUG_INFO=n` to improve build speed.
 
 ## Setting up Ubuntu machine for development
 
