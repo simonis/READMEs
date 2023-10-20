@@ -337,7 +337,7 @@ This assumes that you have branched `feature` from `master` at some point in tim
 git stash
 git stash list
 git checkout <branch|change>
-git stash pop
+git stash pop [stash@{<X>}]
 ```
 
 # submodules
