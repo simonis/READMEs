@@ -1,0 +1,8 @@
+- [JDK-8076103: Writing to the mmaped PerfData file hsperfdata can cause long stalls on Linux](https://bugs.openjdk.org/browse/JDK-8076103)
+- [JDK-8246020: -XX:+UsePerfData is enabled by default and slows down VM bootstrap by 6%](https://bugs.openjdk.org/browse/JDK-8246020)
+- [The Four Month Bug: JVM statistics cause garbage collection pauses](https://www.evanjones.ca/jvm-mmap-pause.html)
+- [Why buffered writes are sometimes stalled](http://yoshinorimatsunobu.blogspot.com/2014/03/why-buffered-writes-are-sometimes.html)
+- [HotSpot Jvmstat Performance Counters](https://openjdk.org/groups/hotspot/docs/Serviceability.html#bjvmstat)
+- [Comparing JMX and hsperf metrics](https://gist.github.com/simonis/df51b07b42ef733f912994a1c8b4eb37)
+- [hsperfdata: golang parser for java HotSpot virtual meachine performance data V2](https://xin053.github.io/hsperfdata/)
+- [The jstat Command](https://docs.oracle.com/en/java/javase/19/docs/specs/man/jstat.html)
