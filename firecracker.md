@@ -654,7 +654,7 @@ $ wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.19.17/amd64/linux-heade
 $ wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.19.17/amd64/linux-headers-5.19.17-051917_5.19.17-051917.202210240939_all.deb
 $ wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.19.17/amd64/linux-image-unsigned-5.19.17-051917-generic_5.19.17-051917.202210240939_amd64.deb
 $ wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.19.17/amd64/linux-modules-5.19.17-051917-generic_5.19.17-051917.202210240939_amd64.deb
-  
+
 $ sudo apt install ./linux-*.deb
 ```
 or:
@@ -678,13 +678,13 @@ $ cp /boot/config-$(uname -r) .config
 $ make olddefconfig
 $ make -j 12 deb-pkg LOCALVERSION=-custom
 $ make -j 12 bindeb-pkg LOCALVERSION=-custom (since kernel 6.3)
-$ sudo dpkg -i ../linux-image-5.19.17-custom_5.19.17-custom-1_amd64.deb ../linux-headers-5.19.17-custom_5.19.17-custom-1_amd64.deb
+$ sudo dpkg -i ../linux-image-6.1.74-custom_6.1.74-custom-1_amd64.deb ../linux-headers-6.1.74-custom_6.1.74-custom-1_amd64.deb ../linux-libc-dev_6.1.74-custom-1_amd64.deb
 ```
 For newer kernel you might have to do (see https://askubuntu.com/questions/1329538/compiling-the-kernel-5-11-11, https://stackoverflow.com/questions/61657707/btf-tmp-vmlinux-btf-pahole-pahole-is-not-available):
 ```
 $ ./scripts/config --disable SYSTEM_TRUSTED_KEYS
 $ ./scripts/config --disable SYSTEM_REVOCATION_KEYS
-$ sudo apt install dwarves
+$ sudo apt-get update && apt-get install dwarves flex bison libssl-dev
 ```
 
 You might want to set `CONFIG_DEBUG_INFO=n` to improve build speed.
@@ -695,7 +695,60 @@ You might want to set `CONFIG_DEBUG_INFO=n` to improve build speed.
 $ sudo apt-get update
 $ sudo apt-get install autoconf make zip unzip gcc g++ gcc g++ libx11-dev libxext-dev libxrender-dev libxrandr-dev libxtst-dev libxt-dev libcups2-dev libasound2-dev libfreetype6-dev libfontconfig-dev ccache libnet-dev libnl-route-3-dev gcc bsdmainutils build-essential git-core iptables libaio-dev libcap-dev libgnutls28-dev libgnutls30 libnl-3-dev libprotobuf-c-dev libprotobuf-dev libselinux-dev libbsd-dev pkg-config protobuf-c-compiler protobuf-compiler emacs-nox apt-transport-https ca-certificates curl software-properties-common libclang-dev net-tools acl
 ```
-## Install Docker: https://docs.docker.com/engine/install/ubuntu/
+- Install Docker: https://docs.docker.com/engine/install/ubuntu/
 ```
 $ sudo adduser ubuntu docker
+```
+
+## Setting up Amazon Linux machine for development
+
+```
+sudo mkdir /priv/
+sudo mkdir /priv/ec2-user
+sudo chown ec2-user:ec2-user /priv/ec2-user
+mkdir /priv/ec2-user/Git
+mkdir /priv/ec2-user/output
+mkdir -p /priv/ec2-user/OpenJDK/Git
+sudo mkdir -p /share/software/
+sudo chown ec2-user:ec2-user /share/software/
+mkdir /share/software/Java
+cd /share/software/Java/
+wget https://corretto.aws/downloads/latest/amazon-corretto-17-x64-linux-jdk.tar.gz
+wget https://corretto.aws/downloads/latest/amazon-corretto-21-x64-linux-jdk.tar.gz
+tar -xzf amazon-corretto-21-x64-linux-jdk.tar.gz
+tar -xzf amazon-corretto-17-x64-linux-jdk.tar.gz
+ln -s amazon-corretto-17.0.10.7.1-linux-x64 corretto-17
+ln -s amazon-corretto-21.0.2.13.1-linux-x64/ corretto-21
+sudo yum install emacs git autoconf alsa-lib-devel cups-devel fontconfig-devel libXtst-devel libXt-devel libXrender-devel libXrandr-devel libXi-devel
+sudo yum groupinstall "Development Tools"
+mkdir /priv/ec2-user/OpenJDK/Git/code-tools
+cd /priv/ec2-user/OpenJDK/Git/code-tools
+git clone https://github.com/openjdk/jtreg
+cd jtreg/
+bash make/build.sh --jdk /share/software/Java/corretto-17
+cd /priv/ec2-user/OpenJDK/Git/
+git clone https://github.com/simonis/crac/
+mkdir /priv/ec2-user/output/crac-opt
+cd /priv/ec2-user/output/crac-opt
+bash /priv/ec2-user/OpenJDK/Git/crac/configure --with-boot-jdk=/share/software/Java/corretto-21 --with-jtreg=/priv/ec2-user/OpenJDK/Git/code-tools/jtreg/build/images/jtreg --disable-precompiled-headers --with-debug-level=release
+```
+
+```
+sudo yum install docker
+sudo systemctl enable docker.service
+sudo systemctl restart docker.service
+sudo usermod -a -G docker ec2-user
+```
+
+```
+cd /share/software/
+wget https://github.com/firecracker-microvm/firecracker/releases/download/v1.6.0/firecracker-v1.6.0-x86_64.tgz
+tar -xzf firecracker-v1.6.0-x86_64.tgz
+sudo ln -s `pwd`/release-v1.6.0-x86_64/firecracker-v1.6.0-x86_64 /usr/local/bin/firecracker
+
+cd /priv/ec2-user/Git
+git clone https://github.com/firecracker-microvm/firecracker.git
+cd firecracker/
+./tools/devtool build
+./tools/devtool build --release
 ```
