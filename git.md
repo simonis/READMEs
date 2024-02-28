@@ -26,6 +26,14 @@ git show <rev>:<file>
 
 Shows `<file>` at the revision `<rev>`.
 
+#### Get tags at the current or at a specific commit
+
+```
+git describe --tags
+git tag --points-at HEAD
+git tag --contains
+```
+
 #### Push new local branch to upstream (`-u` = `--set-upstream`):
 
 ```
