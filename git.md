@@ -126,6 +126,12 @@ PYTHONPATH=~/lib/python ~/bin/mpatch -a -m kdiff3 /tmp/test.patch
 git diff master..JEEConf2018
 ```
 
+- Show diff of a file in two branches [after rename](https://stackoverflow.com/questions/7759193/git-diff-renamed-file):
+```
+git diff rev1:file1 rev2:file2
+git diff rev1 rev2 -M01 -- file1 file2
+```
+
 #### Show the changes in `JEEConf2018` but not in `master`
 
 This contains changes from `JEEConf2018` which have already been cherrypicked to `master`!. Reversing the commit range (i.e. `JEEConf2018..master` will show the changes from master which are not yet in `JEEConf2018`):
