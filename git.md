@@ -12,6 +12,13 @@ git log -n 3
 git log --all --graph --oneline
 ```
 
+#### Configure the Git pager
+
+```
+GIT_PAGER=cat LESS=R git show <rev>
+```
+See [How do I prevent 'git diff' from using a pager?](https://stackoverflow.com/questions/2183900/how-do-i-prevent-git-diff-from-using-a-pager) and [git diff: what pager?](https://stackoverflow.com/questions/60661889/git-diff-what-pager)
+
 #### Show changes and files at revision
 
 ```
@@ -32,6 +39,11 @@ Shows `<file>` at the revision `<rev>`.
 git describe --tags
 git tag --points-at HEAD
 git tag --contains
+```
+
+#### Show commits that changed a file, even if the file was deleted
+```
+git log --all -- <file>
 ```
 
 #### Push new local branch to upstream (`-u` = `--set-upstream`):
