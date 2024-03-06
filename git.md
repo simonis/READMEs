@@ -41,6 +41,12 @@ git tag --points-at HEAD
 git tag --contains
 ```
 
+#### Find the branches a commit/tag is on
+```
+git branch --all --contains tags/<tag>
+git branch --all --contains <commit>
+```
+
 #### Show commits that changed a file, even if the file was deleted
 ```
 git log --all -- <file>
