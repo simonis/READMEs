@@ -669,7 +669,7 @@ $ ./mainline install 6.5.7
 ```
 But this has issues because new kernels have dependencies on `libssl3`/`glibc` which aren't fulfilled on Ubuntu 20.04 (see [here](https://github.com/bkw777/mainline#not-features))
 
-## Compiling Ubuntu/Debian packages from source
+## Compiling Ubuntu/Debian kernel packages from source
 ```
 $ wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.19.17.tar.xz
 $ tar -xJf linux-5.19.17.tar.xz
@@ -688,6 +688,14 @@ $ sudo apt-get update && apt-get install dwarves flex bison libssl-dev
 ```
 
 You might want to set `CONFIG_DEBUG_INFO=n` to improve build speed.
+
+###  Compile perf for newly comiled kernels
+```
+$ sudo apt-get install libunwind-dev libslang2-dev libzstd-dev libbabeltrace-dev libpfm4-dev libperl-dev libnuma-dev
+$ mkdir /share/software/linux-6.5.7_perf
+$ cd linux-6.5.7
+$ NO_LIBTRACEEVENT=1 PYTHON=python3 make -d -C tools/perf prefix=/share/software/linux-6.5.7_perf/ install
+```
 
 ## Setting up Ubuntu machine for development
 
