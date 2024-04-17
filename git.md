@@ -58,6 +58,12 @@ git log --all -- <file>
 git push -u origin JPrime2018
 ```
 
+#### Push commits from a local branch to a different remote branch
+
+```
+git push <remote> <local branch with new changes>:<remote branch you are pushing to>
+```
+
 #### Remove untracked files from the working tree
 
 ```
