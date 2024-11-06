@@ -64,6 +64,12 @@ git push -u origin JPrime2018
 git push <remote> <local branch with new changes>:<remote branch you are pushing to>
 ```
 
+#### Pull commits from a remote branch to a different local branch
+
+```
+git pull <remote> <remote branch you are pulling from>:<local branch your merging into>
+```
+
 #### Remove untracked files from the working tree
 
 ```
