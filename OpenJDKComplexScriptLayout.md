@@ -259,7 +259,7 @@ Also, if we take a closer look at the [`icu-le-hb`](https://github.com/harfbuzz/
 So one possibility to fix our problem would be to integrate this post-processing of the glyph vector after the call to `hb_shape_full()` into OpenJDK as well. One the other hand, we can also take a look on how the resulting glyph vector is processed in OpenJDK and how the corresponding code is handling invisible glyphs. The comments on `ExtendedTextSourceLabel::createCharinfo()` differ as follows between [JDK 8](https://github.com/openjdk/jdk8u-dev/blob/89b85a8f5b0f8e4f7763cf9b4d15e051d6e9f43f/jdk/src/share/classes/sun/font/ExtendedTextSourceLabel.java#L553) and [JDK 9+](https://github.com/openjdk/jdk/blob/c1198bba0e8cbdaa47c821263d122d0ba4dd6759/src/java.desktop/share/classes/sun/font/ExtendedTextSourceLabel.java#L569):
 
 ```diff
-/*
+ /*
  * This takes the glyph info record obtained from the glyph vector and converts it into a similar record
  * adjusted to represent character data instead.  For economy we don't use glyph info records in this processing.
  *
@@ -270,13 +270,12 @@ So one possibility to fix our problem would be to integrate this post-processing
 +*   Some layout engines may insert 0xffff glyphs for characters ligaturized away, but
 +*   not all do, and it cannot be relied upon.
  * - each glyph maps to a single character, when multiple glyphs exist for a character they all map to it, but
--*   no two characters map to the same glyph
-+*   no two characters map to the same glyph (I think this was only true in the old ICU layout engine which inserted 0xffff glyphs for characters ligaturized)
+ *   no two characters map to the same glyph
  * - multiple glyphs mapping to the same character need not be in sequence (thai, tamil have split characters)
  * - glyphs may be arbitrarily reordered (Indic reorders glyphs)
 ```
 
-This clearly documents the differences that we've already detected by looking at the debug output. The following part of the comment which describes the algorithm hasn't changed between 8 and 9+:
+This only documents one of the differences that we've already detected by looking at the debug output, namely the missing invisible glyphs which are only inserted by the old ICU engine. But it still claims that "*each glyph maps to a single character*" which isn't true any more with HarfBuzz which doesn't add invisible glyphs for ligaturized characters any more. Also, the following part of the comment which describes the algorithm hasn't changed between 8 and 9+:
 
 ```java
 /*
