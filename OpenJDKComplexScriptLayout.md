@@ -336,3 +336,55 @@ Here we consume glyph `13` as first glyph from cluster `14` and glyph `14` becau
 Notice that if we had an additional invisible glyph (with zero advance) in the list before glyph `15` (just like in JDK 8), it would have been added to the cluster because of rule `i` and also increased `clusterExtraGlyphs` by one, which would have invalidated the condition `maxIndex - minIndex > clusterExtraGlyphs` after the insertion of glyph `15`.
 
 So, to cut a (very) long story short, removing condition `iii` from the above while loop, will fix this issue (and hopefully don't be harmful for any other cases).
+
+### Appendix
+
+HarfBuzz's command line tool `hb-shape` can be used to easily layout text and get a glyph list comparable to OpenJDK's debug output. This is very handy to compare OpenJDK's layout with that of the latest HarfBuzz version. `hb-shape` can build as follows:
+
+```bash
+$ git clone https://github.com/harfbuzz/harfbuzz.git
+$ cd harfbuzz/
+$ sudo apt-get install meson pkg-config ragel gtk-doc-tools gcc g++ libfreetype6-dev libglib2.0-dev libcairo2-dev
+$ meson build
+$ ninja -Cbuild
+```
+
+Afterwards, we can call `hb-shape` with our example string ("`--cluster-level=1`" means "`HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS`", "`--cluster-level=2`" is "`HB_BUFFER_CLUSTER_LEVEL_CHARACTERS`"):
+
+```
+$ ./build/util/hb-shape --cluster-level=1 --show-unicode \
+    --show-flags --no-glyph-names \
+    /usr/share/fonts/truetype/ttf-khmeros-core/KhmerOS.ttf \
+    "បានស្នើសុំនៅតែត្រូវបានបដិសេធ"
+
+<U+1794=0|U+17B6=1|U+1793=2|U+179F=3|U+17D2=4|U+1793=5|U+17BE=6|U+179F=7|U+17BB=8|U+17C6=9|U+1793=10|U+17C5=11|U+178F=12|U+17C2=13|U+178F=14|U+17D2=15|U+179A=16|U+17BC=17|U+179C=18|U+1794=19|U+17B6=20|U+1793=21|U+1794=22|U+178A=23|U+17B7=24|U+179F=25|U+17C1=26|U+1792=27>
+
+455=0+2325
+581=2+1550
+627=3+775
+593=3+2325
+402=3@25,0+0
+714=3@-25,0+0
+593=7+2325
+621=8@-25,0+0#1
+632=9@-25,0+0#1
+627=10+775
+503=10+2325
+628=12+775
+577=12+1550
+409=14+775
+577=14+1550
+554=17+0#1
+590=18+775
+455=19+2325
+581=21+1550
+582=22+1550
+572=23+1550
+617=24@-50,0+0#1
+627=25+775
+593=25+2325
+580=27+1550
+```
+The first line displays the unicode code points, the second line (with manually added line breaks) shows the glyph numbers, cluster indices, advance, etc. (run `hb-shape --help-output` for a full list). As can be seen, the glyph numbers and cluster indices are the same like in the corresponding JDK output.
+
+Notice that HarfBuzz adds a [`HB_GLYPH_FLAG_UNSAFE_TO_BREAK`](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#HB-GLYPH-FLAG-UNSAFE-TO-BREAK:CAPS) flag to certain glyphs with the semantics that "*if input text is broken at the beginning of the cluster that glyph is part of, then both sides need to be re-shaped, as the result might be different or, on the flip side, it means that when this flag is not present, then it is safe to break the glyph-run at the beginning of this cluster, and the two sides will represent the exact same result one would get if breaking input text at the beginning of that cluster and shaping the two sides separately*" (also see the corresponding [Safe-to-break API](https://github.com/harfbuzz/harfbuzz/issues/224) issue). In the above `hb-shape` output, the `HB_GLYPH_FLAG_UNSAFE_TO_BREAK` flag is represented by `#1` an the corresponding glyphs. Notice how it indicates that cluster to which the glyph `554` (i.e. the glyph for `U+17BC`) is part of, shouldn't be broken! I don't think that OpenJDK's `LineBreakMeasurer` is currently using this valuable information for its line breaking decisions?
