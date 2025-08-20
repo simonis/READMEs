@@ -394,4 +394,4 @@ Notice that HarfBuzz adds a [`HB_GLYPH_FLAG_UNSAFE_TO_BREAK`](https://harfbuzz.g
 
 - [OpenType® Specification](https://learn.microsoft.com/en-us/typography/opentype/spec/)
 - https://codepoints.net/U+17d2 (query information about Unicode code points)
-- https://unicode.scarfboy.com/?s=%E1%9E%94%E1%9E%B6%E1%9E%93%E1%9E%9F%E1%9F%92%E1%9E%93%E1%9E%BE%E1%9E%9F%E1%9E%BB%E1%9F%86%E1%9E%93%E1%9F%85%E1%9E%8F%E1%9F%82%E1%9E%8F%E1%9F%92%E1%9E%9A%E1%9E%BC%E1%9E%9C%E1%9E%94%E1%9E%B6%E1%9E%93%E1%9E%94%E1%9E%8A%E1%9E%B7%E1%9E%9F%E1%9F%81%E1%9E%92 (get information on Unicode code points and strings)
+- https://unicode.scarfboy.com/?s=បានស្នើសុំនៅតែត្រូវបានបដិសេធ (get information on Unicode code points and strings)
