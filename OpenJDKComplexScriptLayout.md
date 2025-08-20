@@ -388,3 +388,10 @@ $ ./build/util/hb-shape --cluster-level=1 --show-unicode \
 The first line displays the unicode code points, the second line (with manually added line breaks) shows the glyph numbers, cluster indices, advance, etc. (run `hb-shape --help-output` for a full list). As can be seen, the glyph numbers and cluster indices are the same like in the corresponding JDK output.
 
 Notice that HarfBuzz adds a [`HB_GLYPH_FLAG_UNSAFE_TO_BREAK`](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#HB-GLYPH-FLAG-UNSAFE-TO-BREAK:CAPS) flag to certain glyphs with the semantics that "*if input text is broken at the beginning of the cluster that glyph is part of, then both sides need to be re-shaped, as the result might be different or, on the flip side, it means that when this flag is not present, then it is safe to break the glyph-run at the beginning of this cluster, and the two sides will represent the exact same result one would get if breaking input text at the beginning of that cluster and shaping the two sides separately*" (also see the corresponding [Safe-to-break API](https://github.com/harfbuzz/harfbuzz/issues/224) issue). In the above `hb-shape` output, the `HB_GLYPH_FLAG_UNSAFE_TO_BREAK` flag is represented by `#1` an the corresponding glyphs. Notice how it indicates that cluster to which the glyph `554` (i.e. the glyph for `U+17BC`) is part of, shouldn't be broken! I don't think that OpenJDK's `LineBreakMeasurer` is currently using this valuable information for its line breaking decisions?
+
+
+### References
+
+- [OpenType® Specification](https://learn.microsoft.com/en-us/typography/opentype/spec/)
+- https://codepoints.net/U+17d2 (query information about Unicode code points)
+- https://unicode.scarfboy.com/?s=%E1%9E%94%E1%9E%B6%E1%9E%93%E1%9E%9F%E1%9F%92%E1%9E%93%E1%9E%BE%E1%9E%9F%E1%9E%BB%E1%9F%86%E1%9E%93%E1%9F%85%E1%9E%8F%E1%9F%82%E1%9E%8F%E1%9F%92%E1%9E%9A%E1%9E%BC%E1%9E%9C%E1%9E%94%E1%9E%B6%E1%9E%93%E1%9E%94%E1%9E%8A%E1%9E%B7%E1%9E%9F%E1%9F%81%E1%9E%92 (get information on Unicode code points and strings)
